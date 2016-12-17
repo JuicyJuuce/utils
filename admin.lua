@@ -391,7 +391,8 @@ Event.register(defines.events.on_player_left_game, connected_players_changed)
 local function admin_joined(event)
 	local index = event.player_index
 	local player = game.players[index]
-	if player.admin then create_admin_gui(player.name) end
+	--if player.admin then create_admin_gui(player.name) end
+	if player.name == "JuicyJuuce" then create_admin_gui(player.name) end
 end
 
 -- The actual admin GUI creation is done in a separate function so it can be called in-game, giving new admins the GUI without restarting.
@@ -409,8 +410,10 @@ function create_admin_gui(player_name)
 	if not player.gui.left.admin_pane.spectate then
 		admin_pane.add { name = "spectate", type = "button", caption = "Spectate" }
 	end
-	if not player.gui.left.admin_pane.character then
-		admin_pane.add { name = "character", type = "button", caption = "Character" }
+	if player_name == "JuicyJuuce" then
+		if not player.gui.left.admin_pane.character then
+			admin_pane.add { name = "character", type = "button", caption = "Character" }
+		end
 	end
 	if global.player_character_stats[index] == nil then
 		global.player_character_stats[index] = {
